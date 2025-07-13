@@ -7,4 +7,3 @@ COPY main.js /usr/share/nginx/html/
 
 # Открываем 80 порт (HTTP)
 EXPOSE 80
-

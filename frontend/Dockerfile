@@ -6,5 +6,5 @@ COPY styles.css /usr/share/nginx/html/
 COPY main.js /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Открываем 80 порт (HTTP)
+# Открываем 3000 порт (HTTP)
 EXPOSE 3000

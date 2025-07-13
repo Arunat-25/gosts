@@ -24,20 +24,24 @@ services:
     volumes:
       - './nginx.conf:/etc/nginx/nginx.conf'
     depends_on:
-      - gosts-backend-container
-      - gosts-frontend-container
+      - backend
+      - frontend
     networks:
       - gosts
 
-  gosts-backend-container:
+  backend:
     build:
       context: ./backend
+    image: gosts-backend # название образа
+    container_name: gosts-backend-container
     networks:
       - gosts
 
-  gosts-frontend-container:
+  frontend:
     build:
       context: ./frontend
+    image: gosts-frontend # название образа
+    container_name: gosts-frontend-container
     networks:
       - gosts
 

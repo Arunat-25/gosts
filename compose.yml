@@ -1,0 +1,46 @@
+networks:
+  gosts:
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: gosts-database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: gosts
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    networks:
+      - gosts
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    depends_on:
+      - gosts-backend-container
+      - gosts-frontend-container
+    networks:
+      - gosts
+
+  gosts-backend-container:
+    build:
+      context: ./backend
+    networks:
+      - gosts
+
+  gosts-frontend-container:
+    build:
+      context: ./frontend
+    networks:
+      - gosts
+
+volumes:
+  pgdata:
+    driver: local

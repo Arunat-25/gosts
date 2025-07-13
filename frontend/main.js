@@ -1,4 +1,4 @@
-let ws = new WebSocket("ws://87.228.102.121:8001/");
+let ws = new WebSocket("ws://87.228.102.121:8001/api/");
 ws.onmessage = function(event) {
     let data = JSON.parse(event.data);
     let elementDivFiles = document.getElementById("files");

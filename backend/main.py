@@ -3,6 +3,7 @@ import uvicorn
 from typing import Annotated
 from thefuzz import process, fuzz
 from fastapi import FastAPI, WebSocket, File, UploadFile, WebSocketDisconnect, Body, Header, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from tortoise.contrib.fastapi import register_tortoise
 from models import FileModel

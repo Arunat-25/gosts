@@ -109,5 +109,14 @@ async def delete_file(name: FileForDelete, verified: bool = Depends(verify_secre
             return {"Success": False, "message": "File not found"}
     return {"Success": False, "message": "File not found"}
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://87.228.102.121"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 if "__main__" == __name__:
     uvicorn.run(app, host="0.0.0.0", port=8001)

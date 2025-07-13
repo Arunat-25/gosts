@@ -1,0 +1,147 @@
+#searcher {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    margin: 20px 0; /* Убрали auto, оставили только вертикальные отступы */
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    justify-content: flex-start; /* Выравниваем элементы по левому краю */
+}
+
+#input-text {
+    flex-grow: 1;              /* Растягиваем на всё доступное пространство */
+    padding: 10px 15px;        /* Внутренние отступы */
+    border: 1px solid #ddd;    /* Граница */
+    border-radius: 4px;        /* Закругленные углы */
+    font-size: 16px;           /* Размер текста */
+    outline: none;             /* Убираем контур при фокусе */
+    transition: border 0.3s;   /* Плавное изменение границы */
+}
+
+#input-text:focus {
+    border-color: #4a90e2;     /* Синяя граница при фокусе */
+}
+
+#send-text {
+    padding: 10px 20px;        /* Внутренние отступы */
+    background-color: #4a90e2; /* Синий фон */
+    color: white;              /* Белый текст */
+    border: none;              /* Без границы */
+    border-radius: 4px;        /* Закругленные углы */
+    cursor: pointer;           /* Курсор-указатель */
+    font-size: 16px;           /* Размер текста */
+    transition: background 0.3s; /* Плавное изменение фона */
+}
+
+#send-text:hover {
+    background-color: #357ab8;  /* Темно-синий при наведении */
+}
+
+#send-text:active {
+    background-color: #2a5f8f;  /* Еще темнее при нажатии */
+}
+
+
+
+#files {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 800px;
+    margin: 20px 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#files > div {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+    min-height: 48px; /* Фиксированная высота строки */
+}
+
+/* Иконка файла */
+#files > div::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231a73e8"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>');
+    background-size: contain;
+    flex-shrink: 0;
+}
+
+/* Стиль для названия файла */
+#files a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    flex-grow: 1;
+    min-width: 0; /* Ключевое свойство для переполнения */
+    white-space: normal; /* Разрешаем перенос строк */
+    word-break: break-word; /* Перенос длинных слов */
+    display: inline-block; /* Для правильного переноса текста */
+    padding-right: 10px; /* Отступ от индикатора PDF */
+}
+
+/* Индикатор PDF */
+#files > div::after {
+    content: "PDF";
+    font-size: 12px;
+    color: #5f6368;
+    background-color: #f1f3f4;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: auto; /* Прижимаем к правому краю */
+    flex-shrink: 0;
+}
+
+/* Анимации при наведении */
+#files > div:hover {
+    background-color: #f8f9fa;
+    border-color: #d0d7de;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+#files > div:hover a {
+    color: #0d62c9;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    #files {
+        padding: 0 10px;
+    }
+
+    #files > div {
+        flex-wrap: wrap; /* Разрешаем перенос элементов */
+        padding: 10px;
+    }
+
+    #files a {
+        font-size: 14px;
+        order: 1; /* Название файла первым */
+        width: 100%; /* На всю ширину */
+        padding-right: 0;
+        margin-bottom: 5px;
+    }
+
+    #files > div::before {
+        order: 0; /* Иконка перед названием */
+    }
+
+    #files > div::after {
+        order: 2; /* Индикатор PDF после названия */
+        margin-left: 36px; /* Выравниваем с текстом */
+    }
+}

@@ -9,7 +9,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from models import FileModel
 
 
-app = FastAPI()
+app = FastAPI(root_path="/api")
 
 register_tortoise(
     app,

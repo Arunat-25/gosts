@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: gosts
       PGDATA: /var/lib/postgresql/data/pgdata
+      DB_URL: "postgres://postgres:1234@gosts-database:5432/gosts"
     ports:
       - "5432:5432"
     networks:
@@ -46,8 +47,7 @@ services:
     container_name: gosts-frontend-container
     networks:
       - gosts
-    ports:
-      - "3000:3000"
+
 
 volumes:
   pgdata:

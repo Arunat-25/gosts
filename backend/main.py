@@ -27,16 +27,23 @@ async def get_gosts(websocket: WebSocket):
         #await FileModel.all().delete()
 
         files = await FileModel.all().values("name", "content")
-        for file in files:
-            file["content"] = base64.b64encode(file["content"]).decode("utf-8")
+        for i in range(len(files)):
+            files[i]["content"] = base64.b64encode(files[i]["content"]).decode("utf-8") #{files: [{content: "sdvvb", name: "as"}, {content: "asdf", name: "as"}]}
+            await websocket.send_json({"file": files[i], "number": i, "its_search": False})
 
-        await websocket.send_json({"files": files}) #{files: [{content: "sdvvb", name: "as"}, {content: "asdf", name: "as"}]}
         while True:
             data = await websocket.receive_json()
-
-            await websocket.send_json({"files": await search(data["text"])})
+            print(data)
+            sorted_file_names = await search(data["text"])
+            for i in range(len(sorted_file_names)):
+                file_name = sorted_file_names[i][0]
+                similarity = sorted_file_names[i][1]
+                file = await FileModel.get(name=file_name)
+                file_content = file.content
+                await websocket.send_json({"file": {"name": file_name, "content": base64.b64encode(file_content).decode("utf-8")}, "number": i, "its_search": True})
     except WebSocketDisconnect:
         pass
+
 
 
 async def search(text):
@@ -47,7 +54,7 @@ async def search(text):
             file["content"] = base64.b64encode(file["content"]).decode("utf-8")
         return for_send
 
-    files = await FileModel.all().values("name", "content")
+    files = await FileModel.all().values("name")
 
     # Выносим синхронный код в отдельный поток
     def sync_search():
@@ -55,19 +62,7 @@ async def search(text):
         return process.extract(text.lower(), file_names, scorer=fuzz.WRatio, limit=len(file_names))
 
     matches = await asyncio.to_thread(sync_search)# получаем [("ГОСТ 12345-2020", 95), ("ТУ 12345-2015", 75), ("ГОСТ 12346-2021", 60)]
-
-    name_to_file = {}
-    for file in files:
-        name_to_file[file["name"]] = file
-
-    result = [
-        {
-            "name": match[0],
-            "content": base64.b64encode(name_to_file[match[0]]["content"]).decode("utf-8")
-        }
-        for match in matches
-    ]
-    return result
+    return matches
 
 
 SECRET_KEY = "1234"

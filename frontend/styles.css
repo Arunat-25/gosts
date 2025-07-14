@@ -45,7 +45,7 @@
 
 
 
-#files {
+#files, #filesAfterRequest{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 800px;
     margin: 20px 0;
@@ -53,7 +53,7 @@
     list-style-type: none;
 }
 
-#files > div {
+#files > div, #filesAfterRequest > div{
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
@@ -68,7 +68,7 @@
 }
 
 /* Иконка файла */
-#files > div::before {
+#files > div::before, #filesAfterRequest > div::before{
     content: "";
     display: inline-block;
     width: 24px;
@@ -80,7 +80,7 @@
 }
 
 /* Стиль для названия файла */
-#files a {
+#files a, #filesAfterRequest a{
     color: #1a73e8;
     text-decoration: none;
     font-size: 15px;
@@ -94,7 +94,7 @@
 }
 
 /* Индикатор PDF */
-#files > div::after {
+#files > div::after, #filesAfterRequest > div::after{
     content: "PDF";
     font-size: 12px;
     color: #5f6368;
@@ -106,29 +106,29 @@
 }
 
 /* Анимации при наведении */
-#files > div:hover {
+#files > div:hover, #filesAfterRequest > div:hover{
     background-color: #f8f9fa;
     border-color: #d0d7de;
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-#files > div:hover a {
+#files > div:hover a, #filesAfterRequest > div:hover a{
     color: #0d62c9;
 }
 
 /* Адаптивность */
 @media (max-width: 600px) {
-    #files {
+    #files, #filesAfterRequest {
         padding: 0 10px;
     }
 
-    #files > div {
+    #files > div, #filesAfterRequest > div{
         flex-wrap: wrap; /* Разрешаем перенос элементов */
         padding: 10px;
     }
 
-    #files a {
+    #files a, #filesAfterRequest a {
         font-size: 14px;
         order: 1; /* Название файла первым */
         width: 100%; /* На всю ширину */
@@ -136,11 +136,11 @@
         margin-bottom: 5px;
     }
 
-    #files > div::before {
+    #files > div::before, #filesAfterRequest > div::before {
         order: 0; /* Иконка перед названием */
     }
 
-    #files > div::after {
+    #files > div::after, #filesAfterRequest > div::after{
         order: 2; /* Индикатор PDF после названия */
         margin-left: 36px; /* Выравниваем с текстом */
     }
